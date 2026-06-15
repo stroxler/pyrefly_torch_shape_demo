@@ -1,3 +1,6 @@
+# Pyrefly directory (used for shape stubs)
+_pyrefly
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
