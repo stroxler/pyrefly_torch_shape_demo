@@ -2,18 +2,19 @@
 
 A minimal demonstration project showing how to set up experimental Pyrefly tensor shape checking for PyTorch code.
 
-The actual code is just a copy of the `nanogpt.py` model already contained in Pyrefly under `tensor-shapes/examples/torch/nanogpt.py`, and you can find many other models in that directory; this project is just a quick demo of how to use tensor shapes directly by grabbing a copy of the experimental stubs in the Pyrefly repository.
+The actual code is just a copy of the `nanogpt.py` model contained in the Pyrefly repository under `tensor-shapes/examples/torch/nanogpt.py`, where you can find many other example models; this project is just a quick demo of how to enable tensor shape checking in your own project.
 
-This demo works by cloning Pyrefly to `_pyrefly` and pointing `search-path` at it in `pyproject.toml`. That's not the only option, you could also just copy the `torch-stubs` folder from Pyrefly into your `site-packages`, but the approach here is good for early adopters because it should allow you to easily patch the stubs and submit a PR to Pyrefly if you find bugs or missing features you need.
+This demo works by depending on the [`pyrefly-torch-stubs`](https://pypi.org/project/pyrefly-torch-stubs/) package, which provides shape-aware `torch` stubs (and pulls in the `pyrefly-shape-extensions` package). These install into `site-packages`, which Pyrefly searches by default, so no `search-path` configuration is required.
+
+Because the tensor-shape stub API is experimental, the `pyrefly` and `pyrefly-torch-stubs` versions must be kept in lockstep — this demo pins both to `1.1.1`. A given release pair may happen to work across adjacent versions, but there is no expectation of stability, so if you bump one you should generally bump the other to a matching version.
 
 ## Setup
 
-Run the setup script to create a virtual environment, install dependencies, and clone Pyrefly:
+Run the setup script to create a virtual environment and install dependencies:
 ```bash
 ./setup.sh
 ```
-This will create a `.venv` directory, install dependencies, and clone Pyrefly to `_pyrefly/` so that
-we can point at the tensor shape stubs contained in it.
+This will create a `.venv` directory and install dependencies (including `pyrefly` and `pyrefly-torch-stubs`).
 
 Next, activate the virtual environment:
 
@@ -33,7 +34,6 @@ You should see `reveal_type(idx)` showing a tensor shape type. You can also see 
 
 - Python >= 3.12
 - `uv` for package management
-- Git for cloning the Pyrefly repository
 
 ## License
 

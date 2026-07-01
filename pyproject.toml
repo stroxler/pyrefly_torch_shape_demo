@@ -5,7 +5,12 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "pyrefly>=1.1.0.dev2",
+    # The tensor-shape stub API is experimental and unstable, so the
+    # pyrefly and pyrefly-torch-stubs versions must be kept in lockstep.
+    # A given release pair may happen to be compatible across adjacent
+    # versions, but there is no expectation of stability.
+    "pyrefly==1.1.1",
+    "pyrefly-torch-stubs==1.1.1",
     "torch>=2.12.0",
 ]
 
@@ -14,8 +19,7 @@ project-includes = [
     "**/*.py*",
     "**/*.ipynb",
 ]
-# Assumes you've checked out pyrefly to ./_pyrefly ... this
-# adds the shape_extensions and shap-aware torch-stubs
-search-path = [
-    "_pyrefly/tensor-shapes/",
-]
+# The shape-aware torch stubs and shape_extensions are provided by the
+# pyrefly-torch-stubs package (which pulls in pyrefly-shape-extensions).
+# They install into site-packages, which Pyrefly searches by default, so
+# no extra search-path is needed.
